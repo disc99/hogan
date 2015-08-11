@@ -4,11 +4,9 @@ table-setup is RDBMS table setup DSL.
 ## How to use
 
 ```groovy
-import static setup.TableSetup.*
+Sql h2 = Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
 
-Sql sql = Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
-
-insert sql, {
+TableSetup.insert h2, {
     table 'item_master'
     rows {
         id | name     | price
