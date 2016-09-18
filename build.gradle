@@ -4,7 +4,7 @@ apply plugin: 'groovy'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-version = '1.0'
+version = '2.0.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -14,7 +14,6 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.4'
     compile 'com.h2database:h2:1.4.187'
 
-    testCompile 'junit:junit:4.+'
     testCompile 'junit:junit:4.+'
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
     testCompile 'org.hamcrest:hamcrest-all:1.3'

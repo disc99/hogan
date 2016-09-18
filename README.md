@@ -1,5 +1,5 @@
-# table-setup
-table-setup is RDBMS table setup DSL.
+# hogan
+hogan is RDBMS table setup DSL.
 
 ## How to use
 
