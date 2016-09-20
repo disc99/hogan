@@ -1,4 +1,4 @@
-package parser
+package disc99.hogan.parser
 
 import groovy.transform.ToString
 
