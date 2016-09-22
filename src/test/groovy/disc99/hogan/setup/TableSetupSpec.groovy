@@ -23,7 +23,7 @@ class TableSetupSpec extends Specification {
             |  PRICE INT);
             |CREATE TABLE sales (
             |  ID INT,
-            |  DATE VARCHAR,
+            |  DAY VARCHAR,
             |  ITEM_ID INT,
             |  COUNT INT);
             |CREATE TABLE persons (
@@ -44,14 +44,14 @@ class TableSetupSpec extends Specification {
             2  | 'Orange' | 250
 
             sales:
-            id | date         | item_id | count
+            id | day          | item_id | count
             1  | '2015-04-01' | 1       | 3
             1  | '2015-04-02' | 2       | 1
             1  | '2015-04-02' | 1       | 2
         }
 
         then:
-        sql.rows("select * from sales").toString() == '[[ID:1, DATE:2015-04-01, ITEM_ID:1, COUNT:3], [ID:1, DATE:2015-04-02, ITEM_ID:2, COUNT:1], [ID:1, DATE:2015-04-02, ITEM_ID:1, COUNT:2]]'
+        sql.rows("select * from sales").toString() == '[[ID:1, DAY:2015-04-01, ITEM_ID:1, COUNT:3], [ID:1, DAY:2015-04-02, ITEM_ID:2, COUNT:1], [ID:1, DAY:2015-04-02, ITEM_ID:1, COUNT:2]]'
         sql.rows("select * from item_master").toString() == '[[ID:1, NAME:Apple, PRICE:500], [ID:2, NAME:Orange, PRICE:250]]'
     }
 
