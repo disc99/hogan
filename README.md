@@ -1,14 +1,16 @@
 # Hogan
 Hogan is RDBMS table disc99.hogan.setup DSL.
 
+[![Build Status](https://travis-ci.org/disc99/hogan.svg?branch=master)](https://travis-ci.org/disc99/hogan)
+[![Coverage Status](https://coveralls.io/repos/github/disc99/hogan/badge.svg?branch=master)](https://coveralls.io/github/disc99/hogan?branch=master)
 
 ## Latest release
 
 To add a dependency:
-
 ```groovy:
+// TODO
 dependencies {
-  testCompile "disc99:hogan:2.0.0"
+  testCompile "disc99:hogan:0.9.0"
 }
 repositories {
   jcenter()
@@ -19,12 +21,13 @@ repositories {
 ## How to use
 
 If dependent on Spock.
-Enabled by Global AST in `Specification` class.
+Enabled by Global AST in `Specification` class. // TODO
 
 Dependency Hogan only.
 `@EnableHogan` annotate target class.
 
 ```groovy
+@EnableHogan // TODO
 class HoganSpec extends Specification {
 
   TableSetup table = new TableSetup("jdbc:h2:mem:", "org.h2.Driver")
