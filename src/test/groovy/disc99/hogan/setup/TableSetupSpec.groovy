@@ -60,10 +60,10 @@ class TableSetupSpec extends Specification {
         table.insert {
             persons:
             id | age | name  | day         | start
-            1  | 2   | 'tom' | new Date(1) | new Timestamp(1)
+            1  | 2   | 'tom' | new Date(1) | Timestamp.valueOf("1970-01-01 00:00:00.001")
         }
 
         then:
-        sql.rows("select * from persons").toString() == '[[ID:1, AGE:2, NAME:tom, DAY:1970-01-01, START:1970-01-01 09:00:00.001]]'
+        sql.rows("select * from persons").toString() == '[[ID:1, AGE:2, NAME:tom, DAY:1970-01-01, START:1970-01-01 00:00:00.001]]'
     }
 }
