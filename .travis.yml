@@ -3,3 +3,4 @@ jdk:
   - oraclejdk8
 after_success:
   - ./gradlew jacocoTestReport coveralls
+  - '[ "$TRAVIS_TAG" ] && ./gradlew bintrayUpload'

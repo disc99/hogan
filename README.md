@@ -26,9 +26,6 @@ repositories {
 If dependent on Spock.
 Enabled by Global AST in `Specification` class.
 
-Dependency Hogan only.
-`@EnableHogan` annotate target class.
-
 ```groovy
 class HoganSpec extends Specification {
 
@@ -64,6 +61,11 @@ INSERT INTO SALES (ID, DAY, ITEM_ID, NUM) VALUES (1, '2015-04-01', 1, 3)
 INSERT INTO SALES (ID, DAY, ITEM_ID, NUM) VALUES (1, '2015-04-02', 2, 1)
 INSERT INTO SALES (ID, DAY, ITEM_ID, NUM) VALUES (1, '2015-04-02', 1, 2)
 ```
+
+## FAQ
+1. Can be calling other than 'Specification' class?
+
+> `@EnableHogan` annotate target class.
 
 ## License
 [MIT License](https://github.com/disc99/hogan/blob/master/LICENSE)
