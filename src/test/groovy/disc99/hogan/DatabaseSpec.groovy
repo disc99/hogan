@@ -1,4 +1,4 @@
-package disc99.hogan.setup
+package disc99.hogan
 
 import groovy.sql.Sql
 import spock.lang.Specification
@@ -6,16 +6,15 @@ import spock.lang.Specification
 import java.sql.Timestamp
 import java.sql.Date
 
-@EnableHogan
-class TableSetupSpec extends Specification {
+class DatabaseSpec extends Specification {
 
     Sql sql
-    TableSetup table
+    Database db
 
     def setup() {
-        sql = Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
-        table = new TableSetup(sql)
 
+        sql = Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
+        db = new Database(sql)
         sql.execute '''
             |CREATE TABLE item_master (
             |  ID INT,
@@ -37,7 +36,7 @@ class TableSetupSpec extends Specification {
 
     def "insert data"() {
         when:
-        table.insert {
+        db.insert {
             item_master:
             id | name     | price
             1  | 'Apple'  | 500
@@ -57,7 +56,7 @@ class TableSetupSpec extends Specification {
 
     def "multi format"() {
         when:
-        table.insert {
+        db.insert {
             persons:
             id | age | name  | day         | start
             1  | 2   | 'tom' | new Date(1) | Timestamp.valueOf("1970-01-01 00:00:00.001")

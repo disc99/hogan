@@ -1,14 +1,17 @@
 # Hogan
-Hogan is RDBMS table disc99.hogan.setup DSL.
 
+Hogan is RDBMS utility DSL.
+
+[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+[![Download](https://api.bintray.com/packages/disc99/maven/hogan/images/download.svg) ](https://bintray.com/disc99/maven/hogan/_latestVersion)
 [![Build Status](https://travis-ci.org/disc99/hogan.svg?branch=master)](https://travis-ci.org/disc99/hogan)
 [![Coverage Status](https://coveralls.io/repos/github/disc99/hogan/badge.svg?branch=master)](https://coveralls.io/github/disc99/hogan?branch=master)
+
 
 ## Latest release
 
 To add a dependency:
 ```groovy:
-// TODO
 dependencies {
   testCompile "disc99:hogan:0.9.0"
 }
@@ -18,23 +21,22 @@ repositories {
 ```
 
 
-## How to use
+## Quick start
 
 If dependent on Spock.
-Enabled by Global AST in `Specification` class. // TODO
+Enabled by Global AST in `Specification` class.
 
 Dependency Hogan only.
 `@EnableHogan` annotate target class.
 
 ```groovy
-@EnableHogan // TODO
 class HoganSpec extends Specification {
 
-  TableSetup table = new TableSetup("jdbc:h2:mem:", "org.h2.Driver")
+  Database db = new Database("jdbc:h2:mem:", "org.h2.Driver")
 
   def test() {
     setup:
-    table.insert {
+    db.insert {
       item_master:
       id | name     | price
       1  | 'Apple'  | 500
@@ -64,4 +66,4 @@ INSERT INTO SALES (ID, DAY, ITEM_ID, NUM) VALUES (1, '2015-04-02', 1, 2)
 ```
 
 ## License
-[MIT License](https://github.com/disc99/hogan/blob/master/License)
+[MIT License](https://github.com/disc99/hogan/blob/master/LICENSE)

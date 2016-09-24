@@ -1,17 +1,17 @@
-package disc99.hogan.setup
+package disc99.hogan
 
 import groovy.sql.Sql
 import disc99.hogan.parser.TableParser
 
-class TableSetup {
+class Database {
 
     Sql sql
 
-    TableSetup(Sql sql) {
+    Database(Sql sql) {
         this.sql = sql
     }
 
-    TableSetup(String url, String driverClassName) {
+    Database(String url, String driverClassName) {
         this.sql = Sql.newInstance(url, driverClassName)
     }
 
