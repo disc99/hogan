@@ -13,7 +13,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 group 'disc99'
-version = '0.9.0'
+version = '0.9.1'
 
 repositories {
     mavenCentral()

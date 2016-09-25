@@ -11,9 +11,9 @@ class HoganTransformation implements ASTTransformation {
 
     @Override
     void visit(ASTNode[] nodes, SourceUnit source) {
-       source.getAST().classes
-               .collect { new TransformClassNode(it) }
-               .findAll { it.isEnable() }
-               .each { it.transform() }
+        source.getAST().classes
+                .collect { new TransformClassNode(it) }
+                .findAll { it.isEnable() }
+                .each { it.transform() }
     }
 }

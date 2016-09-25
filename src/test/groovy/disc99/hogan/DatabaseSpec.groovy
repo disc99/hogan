@@ -1,7 +1,9 @@
 package disc99.hogan
 
 import groovy.sql.Sql
+import org.codehaus.groovy.ast.expr.Expression
 import spock.lang.Specification
+import spock.lang.Unroll
 
 import java.sql.Timestamp
 import java.sql.Date
@@ -84,5 +86,28 @@ class DatabaseSpec extends Specification {
 
         then:
         sql.rows("select * from persons").toString() == '[[ID:1, AGE:2, NAME:tom, DAY:1970-01-01, START:1970-01-01 00:00:00.001]]'
+    }
+
+    @Unroll
+    def "Check delegate SQL logic"() {
+        when:
+        logic.call()
+
+        then:
+        notThrown(Exception)
+
+        where:
+        logic << [
+                { new Database(sql()) },
+                { new Database(sql().getConnection()) },
+                { new Database(sql()).getSql() },
+                { new Database(sql()).commit() },
+                { new Database(sql()).rollback() },
+                { new Database(sql()).close() },
+        ]
+    }
+
+    Sql sql() {
+        Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
     }
 }

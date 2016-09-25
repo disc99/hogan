@@ -32,7 +32,7 @@ class TransformClassNode {
      * @return
      */
     boolean isEnable() {
-       isAnnotatedHogan() || isExtendsSpecification()
+        isAnnotatedHogan() || isExtendsSpecification()
     }
 
     /**
