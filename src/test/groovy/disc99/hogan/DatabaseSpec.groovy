@@ -12,7 +12,6 @@ class DatabaseSpec extends Specification {
     Database db
 
     def setup() {
-
         sql = Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
         db = new Database(sql)
         sql.execute '''
@@ -52,6 +51,27 @@ class DatabaseSpec extends Specification {
         then:
         sql.rows("select * from sales").toString() == '[[ID:1, DAY:2015-04-01, ITEM_ID:1, COUNT:3], [ID:1, DAY:2015-04-02, ITEM_ID:2, COUNT:1], [ID:1, DAY:2015-04-02, ITEM_ID:1, COUNT:2]]'
         sql.rows("select * from item_master").toString() == '[[ID:1, NAME:Apple, PRICE:500], [ID:2, NAME:Orange, PRICE:250]]'
+    }
+
+    def "expect table"() {
+        setup:
+        sql.dataSet("item_master").add(id: 100, name: 'Banana')
+        sql.dataSet("item_master").add(id: 101, name: 'Pineapple')
+        sql.dataSet("sales").add(id: 200, day: '2016-04-01', item_id: 100)
+        sql.dataSet("sales").add(id: 201, day: '2016-04-02', item_id: 101)
+
+        expect:
+        db.expect {
+            item_master:
+            id  | name
+            100 | 'Banana'
+            101 | 'Pineapple'
+
+            sales:
+            id  | day          | item_id
+            200 | '2016-04-01' | 100
+            201 | '2016-04-02' | 101
+        }
     }
 
     def "multi format"() {

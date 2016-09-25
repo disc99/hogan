@@ -22,7 +22,7 @@ import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation
 import spock.lang.Specification
 
-@GroovyASTTransformation(phase = CompilePhase.CANONICALIZATION)
+@GroovyASTTransformation(phase = CompilePhase.SEMANTIC_ANALYSIS)
 class HoganTransformation implements ASTTransformation {
 
     @Override
@@ -33,18 +33,22 @@ class HoganTransformation implements ASTTransformation {
                 classNode.methods.collect {
                     if (it.code instanceof BlockStatement) {
                         ((BlockStatement) it.code).statements
-                                .findAll { it instanceof ExpressionStatement }
-                                .findAll { it.expression instanceof MethodCallExpression }
-                                .findAll { it.expression.objectExpression instanceof VariableExpression }
-                                .findAll { ((VariableExpression) it.expression.objectExpression).accessedVariable?.type?.name == Database.class.name }
-                                .findAll { it.expression.method instanceof ConstantExpression }
-                                .findAll { ((ConstantExpression) it.expression.method).value == "insert" }
-                                .findAll { it.expression.arguments.expressions[0] instanceof ClosureExpression }
+                                .findAll { ((it instanceof ExpressionStatement )
+                                && (it.expression instanceof MethodCallExpression )
+                                && (it.expression.objectExpression instanceof VariableExpression )
+                                && (((VariableExpression) it.expression.objectExpression).accessedVariable?.type?.name == Database.class.name )
+                                && (it.expression.method instanceof ConstantExpression )
+                                && (isAstMethod(((ConstantExpression) it.expression.method).value) )
+                                && (it.expression.arguments.expressions[0] instanceof ClosureExpression)) }
                                 .each { rewrite(it.expression) }
                     }
                 }
             }
         }
+    }
+
+    private boolean isAstMethod(value) {
+        value == "insert" || value == "expect"
     }
 
     private boolean isEnableClass(ClassNode node) {

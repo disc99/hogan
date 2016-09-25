@@ -11,7 +11,8 @@ Hogan is RDBMS utility DSL.
 ## Latest release
 
 To add a dependency:
-```groovy:
+
+```groovy
 dependencies {
   testCompile "disc99:hogan:0.9.0"
 }
@@ -22,6 +23,8 @@ repositories {
 
 
 ## Quick start
+
+### Insert
 
 If dependent on Spock.
 Enabled by Global AST in `Specification` class.
@@ -62,8 +65,36 @@ INSERT INTO SALES (ID, DAY, ITEM_ID, NUM) VALUES (1, '2015-04-02', 2, 1)
 INSERT INTO SALES (ID, DAY, ITEM_ID, NUM) VALUES (1, '2015-04-02', 1, 2)
 ```
 
+### Expect
+
+```groovy
+class HoganSpec extends Specification {
+
+  Database db = new Database("jdbc:h2:mem:", "org.h2.Driver")
+
+  def test() {
+    when:
+    // ...
+
+    then:
+    db.expect {
+      item_master:
+      id | name     | price
+      1  | 'Apple'  | 500
+      2  | 'Orange' | 250
+
+      sales:
+      id | day          | item_id | num
+      1  | '2015-04-01' | 1       | 3
+      2  | '2015-04-02' | 2       | 1
+      3  | '2015-04-02' | 1       | 2
+    }
+  }
+}
+```
+
 ## FAQ
-1. Can be calling other than 'Specification' class?
+1. Can be calling other than `Specification` class?
 
 > `@EnableHogan` annotate target class.
 
