@@ -14,7 +14,7 @@ To add a dependency:
 
 ```groovy
 dependencies {
-  testCompile "disc99:hogan:0.9.0"
+  testCompile "disc99:hogan:0.9.1"
 }
 repositories {
   jcenter()
@@ -24,7 +24,7 @@ repositories {
 
 ## Quick start
 
-### Insert
+### Feature: `insert`
 
 If dependent on Spock.
 Enabled by Global AST in `Specification` class.
@@ -65,7 +65,7 @@ INSERT INTO SALES (ID, DAY, ITEM_ID, NUM) VALUES (1, '2015-04-02', 2, 1)
 INSERT INTO SALES (ID, DAY, ITEM_ID, NUM) VALUES (1, '2015-04-02', 1, 2)
 ```
 
-### Expect
+### Feature: `expect`
 
 ```groovy
 class HoganSpec extends Specification {
