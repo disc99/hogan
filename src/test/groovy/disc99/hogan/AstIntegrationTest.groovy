@@ -12,7 +12,7 @@ class AstIntegrationTest extends GroovyTestCase {
 
         assert file.exists()
 
-        def invoker = new TransformTestHelper(new HoganTransformation(), CompilePhase.CANONICALIZATION)
+        def invoker = new TransformTestHelper(new HoganTransformation(), CompilePhase.SEMANTIC_ANALYSIS)
 
         def clazz = invoker.parse(file)
         def tester = clazz.newInstance()

@@ -2,6 +2,7 @@ package disc99.hogan
 
 import groovy.sql.Sql
 import spock.lang.Specification
+import spock.lang.Unroll
 
 import java.sql.Timestamp
 import java.sql.Date
@@ -12,7 +13,6 @@ class DatabaseSpec extends Specification {
     Database db
 
     def setup() {
-
         sql = Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
         db = new Database(sql)
         sql.execute '''
@@ -54,6 +54,27 @@ class DatabaseSpec extends Specification {
         sql.rows("select * from item_master").toString() == '[[ID:1, NAME:Apple, PRICE:500], [ID:2, NAME:Orange, PRICE:250]]'
     }
 
+    def "expect table"() {
+        setup:
+        sql.dataSet("item_master").add(id: 100, name: 'Banana')
+        sql.dataSet("item_master").add(id: 101, name: 'Pineapple')
+        sql.dataSet("sales").add(id: 200, day: '2016-04-01', item_id: 100)
+        sql.dataSet("sales").add(id: 201, day: '2016-04-02', item_id: 101)
+
+        expect:
+        db.expect {
+            item_master:
+            id  | name
+            100 | 'Banana'
+            101 | 'Pineapple'
+
+            sales:
+            id  | day          | item_id
+            200 | '2016-04-01' | 100
+            201 | '2016-04-02' | 101
+        }
+    }
+
     def "multi format"() {
         when:
         db.insert {
@@ -64,5 +85,28 @@ class DatabaseSpec extends Specification {
 
         then:
         sql.rows("select * from persons").toString() == '[[ID:1, AGE:2, NAME:tom, DAY:1970-01-01, START:1970-01-01 00:00:00.001]]'
+    }
+
+    @Unroll
+    def "Check delegate SQL logic"() {
+        when:
+        logic.call()
+
+        then:
+        notThrown(Exception)
+
+        where:
+        logic << [
+                { new Database(sql()) },
+                { new Database(sql().getConnection()) },
+                { new Database(sql()).getSql() },
+                { new Database(sql()).commit() },
+                { new Database(sql()).rollback() },
+                { new Database(sql()).close() },
+        ]
+    }
+
+    Sql sql() {
+        Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
     }
 }
