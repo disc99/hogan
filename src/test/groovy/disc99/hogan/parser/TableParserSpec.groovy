@@ -2,7 +2,6 @@ package disc99.hogan.parser
 
 import spock.lang.Specification
 
-
 class TableParserSpec extends Specification {
 
     static def dataTable
