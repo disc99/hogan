@@ -11,13 +11,13 @@ Hogan is the utility library which allows you to access DB intuitively.
 
 
 ## Description
-As you know, DB processing needs boilerplate code.
-Hogan expresses data structure with Spock like DSL (known as "data table DSL").
+As you know, DB processing needs boilerplate code.<br>
+Hogan expresses data structure with Spock like DSL (known as "data table DSL").<br>
 That's why you can access DB intuitively.
 
 ## Features
-- Insert multi tables
-- Assert multi tables (@Beta)
+- Insert multiple tables
+- Assert multiple tables (@Beta)
 
 
 ## Usage
@@ -33,14 +33,14 @@ repositories {
 }
 ```
 ### Enable Hogan DSL
-There are two ways to enable Hogan DSL.
-One way is to create subclass of 'Specification'
+There are two ways to enable Hogan DSL.<br>
+One way is to create subclass of `Specification`.<br>
 The other way is to add `@EnableHogan` annotation to the target class.
 
 ### Create `Database` instance
-Create 'Database' class which processes DB access.
-Constractor of 'Database' is a deregater to create `groovy.sql.Sql`.('new Sql' or 'Sql.newInstance')
-If you need more information, check the following link.
+Create `Database` class which processes DB access.<br>
+Constractor of `Database` is a deregater to create `groovy.sql.Sql`(new Sql or Sql.newInstance).<br>
+If you need more information, check the following link.<br>
 [`groovy.sql.Sql`](http://docs.groovy-lang.org/docs/latest/html/gapi/groovy/sql/Sql.html)
 
 ```groovy
@@ -48,8 +48,8 @@ Database db = new Database("jdbc:h2:mem:", "org.h2.Driver")
 ```
 
 ### Feature: insert
-Describe table name whith label, and execute SQL each of it.
-Execute 'Insert' according to the table definition.
+Describe table name whith label, and execute SQL each of it.<br>
+Execute 'Insert' according to the table definition.<br>
 And of cource you can deal with the number of labels.
 
 ```groovy
@@ -86,7 +86,7 @@ INSERT INTO SALES (ID, DAY, ITEM_ID, NUM) VALUES (3, '2015-04-02', 1, 2)
 ```
 
 ### Feature: expect (@Beta)
-Assert to the table according to the definition.
+Assert to the table according to the definition.<br>
 And undefined columns will be ignored.
 
 ```groovy
@@ -115,10 +115,6 @@ assert actual == expected
        |      false
        [[ID:100, NAME:Banana], [ID:101, NAME:Pine]]
 ```
-
-## Author
-
-[@disc99](https://github.com/disc99)
 
 ## License
 [MIT License](https://github.com/disc99/hogan/blob/master/LICENSE)

@@ -1,7 +1,6 @@
 package disc99.hogan
 
 import groovy.sql.Sql
-import org.codehaus.groovy.ast.expr.Expression
 import spock.lang.Specification
 import spock.lang.Unroll
 
