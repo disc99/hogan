@@ -1,11 +1,14 @@
 # Hogan
 
+![Hogan Image](https://raw.githubusercontent.com/wiki/disc99/hogan/images/hogan.png)
+
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 [![Download](https://api.bintray.com/packages/disc99/maven/hogan/images/download.svg) ](https://bintray.com/disc99/maven/hogan/_latestVersion)
 [![Build Status](https://travis-ci.org/disc99/hogan.svg?branch=master)](https://travis-ci.org/disc99/hogan)
 [![Coverage Status](https://coveralls.io/repos/github/disc99/hogan/badge.svg?branch=master)](https://coveralls.io/github/disc99/hogan?branch=master)
 
 Hoganはデータベースへのアクセス処理を直感的に行うためのユーティリティライブラリです。
+
 
 ## Description
 データベースへのアクセス処理は、しばし冗長で、分かりにくいことがあります。
@@ -14,7 +17,7 @@ Hoganは、Spockのようなデータテーブル構造のDSLを用いてデー�
 
 ## Features
 - Insert multi tables
-- Assert multi tables
+- Assert multi tables (@Beta)
 
 
 ## Usage
