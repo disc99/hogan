@@ -133,6 +133,7 @@ class Database {
      *
      * @param tables
      */
+    @Beta
     void expect(tables) {
         println tables
         tables.each { name, table ->
