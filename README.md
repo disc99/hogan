@@ -111,9 +111,9 @@ You will get following message when there's any discard.
 ```
 assert actual == expected
        |      |  |
-       |      |  [[ID:100, NAME:Banana], [ID:101, NAME:Pineapple]]
+       |      |  [[ID:100, NAME:Banana], [ID:101, NAME:Pine]]
        |      false
-       [[ID:100, NAME:Banana], [ID:101, NAME:Pine]]
+       [[ID:100, NAME:Banana], [ID:101, NAME:Pineapple]]
 ```
 
 ## License

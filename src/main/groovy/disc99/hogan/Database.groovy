@@ -141,12 +141,12 @@ class Database {
             Table t = TableParser.asTable(table)
             Table upperColumnTable = new Table(t.columns.collect({ new Column(name: it.name.toUpperCase()) }), t.rows)
 
-            List<Map> expected = sql.dataSet(name).rows().collect {
+            List<Map> actual = sql.dataSet(name).rows().collect {
                 it.collectEntries({ key, val -> [key.toUpperCase(), val] })
                         .subMap(upperColumnTable.columns.collect({ it.name }))
             }
 
-            def actual = upperColumnTable.toMapList()
+            def expected = upperColumnTable.toMapList()
             assert actual == expected
         }
     }
