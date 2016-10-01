@@ -7,13 +7,13 @@
 [![Build Status](https://travis-ci.org/disc99/hogan.svg?branch=master)](https://travis-ci.org/disc99/hogan)
 [![Coverage Status](https://coveralls.io/repos/github/disc99/hogan/badge.svg?branch=master)](https://coveralls.io/github/disc99/hogan?branch=master)
 
-Hoganはデータベースへのアクセス処理を直感的に行うためのユーティリティライブラリです。
+Hogan is the utility library which allows you to access DB intuitively.
 
 
 ## Description
-データベースへのアクセス処理は、しばし冗長で、分かりにくいことがあります。
-Hoganは、Spockのようなデータテーブル構造のDSLを用いてデータを表現し、各処理を実行します。
-
+As you know, DB processing needs boilerplate code.
+Hogan expresses data structure with Spock like DSL (known as "data table DSL").
+That's why you can access DB intuitively.
 
 ## Features
 - Insert multi tables
@@ -22,7 +22,7 @@ Hoganは、Spockのようなデータテーブル構造のDSLを用いてデー�
 
 ## Usage
 ### Add dependency
-Hoganを使用する場合には以下のDependencyとリポジトリを追加してください。
+At first, please add following dependency and repository.
 
 ```groovy
 dependencies {
@@ -32,26 +32,25 @@ repositories {
   jcenter()
 }
 ```
+### Enable Hogan DSL
+There are two ways to enable Hogan DSL.
+One way is to create subclass of 'Specification'
+The other way is to add `@EnableHogan` annotation to the target class.
 
 ### Create `Database` instance
-データベースへのアクセス処理を行う`Database`クラスの生成を行います。
-`Database`コンストラクタは`groovy.sql.Sql`生成のための、コンストラクタ、またはnewInstanceメソッドへの委譲処理です。
-詳細を知りたい場合には、[`groovy.sql.Sql`](http://docs.groovy-lang.org/docs/latest/html/gapi/groovy/sql/Sql.html)から詳細を確認することが出来ます。
+Create 'Database' class which processes DB access.
+Constractor of 'Database' is a deregater to create `groovy.sql.Sql`.('new Sql' or 'Sql.newInstance')
+If you need more information, check the following link.
+[`groovy.sql.Sql`](http://docs.groovy-lang.org/docs/latest/html/gapi/groovy/sql/Sql.html)
 
 ```groovy
 Database db = new Database("jdbc:h2:mem:", "org.h2.Driver")
 ```
 
-### Enable Hogan DSL
-Hoganは、そのDSLをクラス内で有効にする必要があります。
-
-`Specification`のサブクラスの場合は自動的に有効になります。
-また、それ以外のクラスで使用する場合には、`@EnableHogan`をクラスに付加することでも有効にできます。
-
 ### Feature: insert
-記述したテーブル定義に従ってInsert処理を実行します。
-ラベルがテーブル名となり、記述したラベル単位でSQLの実行します。
-また、複数のラベルを記述することで、それぞれのテーブルに対するinsertも可能です。
+Describe table name whith label, and execute SQL each of it.
+Execute 'Insert' according to the table definition.
+And of cource you can deal with the number of labels.
 
 ```groovy
 class HoganSpec extends Specification {
@@ -76,7 +75,7 @@ class HoganSpec extends Specification {
 }
 ```
 
-実際には以下のようなSQLが実行されます。
+Followings are acutual executed SQL.
 
 ```sql
 INSERT INTO ITEM_MASTER (ID, NAME, PRICE) VALUES (1, 'Apple', 500)
@@ -87,8 +86,8 @@ INSERT INTO SALES (ID, DAY, ITEM_ID, NUM) VALUES (3, '2015-04-02', 1, 2)
 ```
 
 ### Feature: expect (@Beta)
-記述した定義に従い、テーブルのアサートを行います。
-また、記述されていないカラムはアサートの対象から除外されます。
+Assert to the table according to the definition.
+And undefined columns will be ignored.
 
 ```groovy
 class HoganSpec extends Specification {
@@ -107,7 +106,7 @@ class HoganSpec extends Specification {
 }
 ```
 
-仮にテーブルのデータに誤りがある場合には、以下のような結果が出力されます。
+You will get following message when there's any discard.
 
 ```
 assert actual == expected
