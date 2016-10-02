@@ -1,13 +1,12 @@
-package disc99.hogan
+package io.disc99.hogan
 
-import disc99.hogan.parser.Column
-import disc99.hogan.parser.Table
+import io.disc99.hogan.parser.Column
+import io.disc99.hogan.parser.Table
 import groovy.sql.Sql
-import disc99.hogan.parser.TableParser
+import io.disc99.hogan.parser.TableParser
 
 import javax.sql.DataSource
 import java.sql.Connection
-import java.sql.SQLException
 
 /**
  * Database utility class.

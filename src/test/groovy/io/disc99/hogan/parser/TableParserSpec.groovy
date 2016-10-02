@@ -1,4 +1,4 @@
-package disc99.hogan.parser
+package io.disc99.hogan.parser
 
 import spock.lang.Specification
 
@@ -19,15 +19,14 @@ class TableParserSpec extends Specification {
         def actual = TableParser.asListOfRows dataTable
 
         expect:
-        actual.toString() == '[disc99.hogan.parser.Row([disc99.hogan.parser.Column(name), disc99.hogan.parser.Column(age), disc99.hogan.parser.Column(married), disc99.hogan.parser.Column(weight), disc99.hogan.parser.Column(birthday)]), disc99.hogan.parser.Row([Tom, 20, false, 75.6, 1995-01-01]), disc99.hogan.parser.Row([Chris, 30, true, 42.3, 1985-12-31])]'
-    }
+        actual.toString() == '[io.disc99.hogan.parser.Row([io.disc99.hogan.parser.Column(name), io.disc99.hogan.parser.Column(age), io.disc99.hogan.parser.Column(married), io.disc99.hogan.parser.Column(weight), io.disc99.hogan.parser.Column(birthday)]), io.disc99.hogan.parser.Row([Tom, 20, false, 75.6, 1995-01-01]), io.disc99.hogan.parser.Row([Chris, 30, true, 42.3, 1985-12-31])]'    }
 
     def "data to table"() {
         setup:
         def actual = TableParser.asTable dataTable
 
         expect:
-        actual.toString() == 'disc99.hogan.parser.Table([disc99.hogan.parser.Column(name), disc99.hogan.parser.Column(age), disc99.hogan.parser.Column(married), disc99.hogan.parser.Column(weight), disc99.hogan.parser.Column(birthday)], [disc99.hogan.parser.Row([Tom, 20, false, 75.6, 1995-01-01]), disc99.hogan.parser.Row([Chris, 30, true, 42.3, 1985-12-31])])'
+        actual.toString() == 'io.disc99.hogan.parser.Table([io.disc99.hogan.parser.Column(name), io.disc99.hogan.parser.Column(age), io.disc99.hogan.parser.Column(married), io.disc99.hogan.parser.Column(weight), io.disc99.hogan.parser.Column(birthday)], [io.disc99.hogan.parser.Row([Tom, 20, false, 75.6, 1995-01-01]), io.disc99.hogan.parser.Row([Chris, 30, true, 42.3, 1985-12-31])])'
     }
 
     def "data to map list"() {

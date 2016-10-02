@@ -1,7 +1,7 @@
-package disc99.hogan.ast
+package io.disc99.hogan.ast
 
-import disc99.hogan.Database
-import disc99.hogan.EnableHogan
+import io.disc99.hogan.Database
+import io.disc99.hogan.EnableHogan
 import org.codehaus.groovy.ast.ClassHelper
 import org.codehaus.groovy.ast.ClassNode
 import org.codehaus.groovy.ast.Parameter

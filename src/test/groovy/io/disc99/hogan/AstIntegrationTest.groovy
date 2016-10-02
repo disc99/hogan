@@ -1,6 +1,6 @@
-package disc99.hogan
+package io.disc99.hogan
 
-import disc99.hogan.ast.HoganTransformation
+import io.disc99.hogan.ast.HoganTransformation
 import org.codehaus.groovy.control.CompilePhase
 import org.codehaus.groovy.tools.ast.TransformTestHelper
 
@@ -8,7 +8,7 @@ class AstIntegrationTest extends GroovyTestCase {
 
     public void testInvokeUnitTest() {
 
-         File file = new File("./src/test/groovy/disc99/hogan/TestClass.groovy")
+         File file = new File("./src/test/groovy/io/disc99/hogan/TestClass.groovy")
 
         assert file.exists()
 

@@ -1,4 +1,4 @@
-package disc99.hogan.parser
+package io.disc99.hogan.parser
 
 import groovy.transform.ToString
 import groovy.transform.TupleConstructor

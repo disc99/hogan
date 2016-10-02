@@ -1,4 +1,4 @@
-package disc99.hogan.ast
+package io.disc99.hogan.ast
 
 import org.codehaus.groovy.ast.ASTNode
 import org.codehaus.groovy.control.CompilePhase

@@ -1,4 +1,4 @@
-package disc99.hogan
+package io.disc99.hogan
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
