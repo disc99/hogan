@@ -29,7 +29,7 @@ dependencies {
   testCompile "io.disc99:hogan:0.9.1"
 }
 repositories {
-  jcenter()
+    maven { url "http://maven.seasar.org/maven2" }
 }
 ```
 ### Enable Hogan DSL
