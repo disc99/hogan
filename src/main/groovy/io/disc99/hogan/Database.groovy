@@ -134,7 +134,6 @@ class Database {
      */
     @Beta
     void expect(tables) {
-        println tables
         tables.each { name, table ->
 
             Table t = TableParser.asTable(table)
