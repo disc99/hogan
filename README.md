@@ -26,7 +26,7 @@ At first, please add following dependency and repository.
 
 ```groovy
 dependencies {
-  testCompile "io.disc99:hogan:0.9.1"
+  testCompile "io.disc99:hogan:0.9.2"
 }
 repositories {
   jcenter()
