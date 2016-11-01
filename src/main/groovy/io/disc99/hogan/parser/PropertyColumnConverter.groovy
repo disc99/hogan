@@ -2,7 +2,7 @@ package io.disc99.hogan.parser
 
 class PropertyColumnConverter {
 
-    def getProperty(String property) {
+    Column getProperty(String property) {
         new Column(name: property)
     }
 }

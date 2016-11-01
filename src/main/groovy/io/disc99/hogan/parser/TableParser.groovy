@@ -17,7 +17,7 @@ class TableParser {
     }
 
     static appendRow(value, nextValue) {
-        def row = new Row(values: [value])
+        Row row = new Row(values: [value])
         context.get().add(row)
         row.or(nextValue)
     }

@@ -9,7 +9,7 @@ class Table {
     List columns
     List rows
 
-    def toMapList() {
+    List<Map<String, Object>> toMapList() {
         rows.collect { [columns, it.values].transpose().collectEntries { [it[0].name, it[1]] } }
     }
 }
