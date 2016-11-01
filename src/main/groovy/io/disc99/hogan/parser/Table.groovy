@@ -6,7 +6,7 @@ import groovy.transform.TupleConstructor
 @ToString
 @TupleConstructor
 class Table {
-    List columns
+    List<Column> columns
     List rows
 
     List<Map<String, Object>> toMapList() {

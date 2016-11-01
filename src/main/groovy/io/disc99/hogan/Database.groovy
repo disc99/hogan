@@ -1,6 +1,5 @@
 package io.disc99.hogan
 
-import io.disc99.hogan.parser.Column
 import io.disc99.hogan.parser.Table
 import groovy.sql.Sql
 import io.disc99.hogan.parser.TableParser
@@ -133,21 +132,25 @@ class Database {
      * @param tables
      */
     @Beta
-    void expect(tables) {
-        tables.each { name, table ->
+    void expect(tableDefs) {
+        tableDefs.each { name, tableDef ->
 
-            Table t = TableParser.asTable(table)
-            Table upperColumnTable = new Table(t.columns.collect({ new Column(name: it.name.toUpperCase()) }), t.rows)
+            Table table = TableParser.asTable(tableDef)
+            List<Map<String, Object>> tableMap = table.toMapList()
+            String expected = tableMap.toString()
 
-            List<Map> rows = sql.dataSet(name).rows().collect {
-                it.collectEntries({ key, val -> [key.toUpperCase(), val] })
-                        .subMap(upperColumnTable.columns.collect({ it.name }))
+            List<String> upperCols = table.columns.collect { it.name.toUpperCase() }
+            List<Map<String, Object>> rows = sql.dataSet(name).rows().collect {
+                it.subMap(upperCols).collectEntries({k, v -> [findByUpperCol(table, k), v]})
             }
-
-            def expected = upperColumnTable.toMapList().toString()
             String actual = rows.toString()
+
             assert actual == expected
         }
+    }
+
+    String findByUpperCol(Table table, String col) {
+        table.columns.find({it.name.toUpperCase() == col}).name
     }
 
     /**
