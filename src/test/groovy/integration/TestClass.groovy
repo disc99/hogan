@@ -1,6 +1,8 @@
-package io.disc99.hogan
+package integration
 
 import groovy.sql.Sql
+import io.disc99.hogan.Database
+import io.disc99.hogan.EnableHogan
 
 import java.sql.Date
 import java.sql.Timestamp
