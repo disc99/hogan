@@ -62,17 +62,25 @@ class DatabaseSpec extends Specification {
     }
 
     def "expect table"() {
-            setup:
-            sql.dataSet("item_master").add(id: 100, name: 'Banana')
-            sql.dataSet("item_master").add(id: 101, name: 'Pineapple')
+        setup:
+        sql.dataSet("item_master").add(id: 100, name: 'Banana')
+        sql.dataSet("item_master").add(id: 101, name: 'Pineapple')
+        sql.dataSet("sales").add(id: 1, count: 10, create_at: new Date(Long.MAX_VALUE))
+        sql.dataSet("sales").add(id: 2, count: 10, create_at: new Date(0))
+        sql.dataSet("sales").add(id: 3, count: 50, create_at: new Date(Long.MAX_VALUE))
 
-            expect:
-            db.expect {
-                item_master:
-                id  | name
-                100 | 'Banana'
-                101 | 'Pineapple'
-            }
+        expect:
+        db.expect {
+            item_master:
+            id  | name
+            100 | 'Banana'
+            101 | 'Pineapple'
+
+            sales: 'id = 3 or create_at < current_date()'
+            id | count
+            2  | 10
+            3  | 50
+        }
     }
 
     def "multi format"() {
@@ -105,6 +113,7 @@ class DatabaseSpec extends Specification {
                 { new Database(sql()).close() },
         ]
     }
+
 
     Sql sql() {
         Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
