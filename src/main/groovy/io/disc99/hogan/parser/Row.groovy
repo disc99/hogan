@@ -7,7 +7,7 @@ class Row {
 
     List values = []
 
-    def or(arg) {
+    Row or(arg) {
         values.add(arg)
         this
     }

@@ -1,6 +1,5 @@
 package io.disc99.hogan
 
-import io.disc99.hogan.parser.Column
 import io.disc99.hogan.parser.Table
 import groovy.sql.Sql
 import io.disc99.hogan.parser.TableParser
@@ -120,9 +119,11 @@ class Database {
      * @param tables
      */
     void insert(tables) {
-        tables.each { name, table ->
+        Map<String, Closure> tableMap = (Map<String, Closure>)tables
+        tableMap.each { name, table ->
             TableParser.asTable(table).toMapList().each {
-                sql.dataSet(name).add(it)
+                String[] names = name.split(":")
+                sql.dataSet(names[0]).add(it)
             }
         }
     }
@@ -133,21 +134,31 @@ class Database {
      * @param tables
      */
     @Beta
-    void expect(tables) {
-        println tables
-        tables.each { name, table ->
+    void 'assert'(tableDefs) {
+        Map<String, Closure> tableMap = (Map<String, Closure>)tableDefs
 
-            Table t = TableParser.asTable(table)
-            Table upperColumnTable = new Table(t.columns.collect({ new Column(name: it.name.toUpperCase()) }), t.rows)
+        tableMap.each { name, tableDef ->
+            String[] names = name.split(":")
+            Table table = TableParser.asTable(tableDef)
+            List<Map<String, Object>> tables = table.toMapList()
+            String expected = tables.toString()
 
-            List<Map> actual = sql.dataSet(name).rows().collect {
-                it.collectEntries({ key, val -> [key.toUpperCase(), val] })
-                        .subMap(upperColumnTable.columns.collect({ it.name }))
+            List<String> upperCols = table.columns.collect { it.name.toUpperCase() }
+            String query =  sql.dataSet(names[0]).getSql()
+            if (names.length == 2) {
+                query += " where " + names[1]
             }
+            List<Map<String, Object>> rows = sql.rows(query).collect {
+                it.subMap(upperCols).collectEntries({k, v -> [findByUpperCol(table, k), v]})
+            }
+            String actual = rows.toString()
 
-            def expected = upperColumnTable.toMapList()
             assert actual == expected
         }
+    }
+
+    String findByUpperCol(Table table, String col) {
+        table.columns.find({it.name.toUpperCase() == col}).name
     }
 
     /**
@@ -182,5 +193,3 @@ class Database {
         sql
     }
 }
-
-

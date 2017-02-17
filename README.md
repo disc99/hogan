@@ -26,7 +26,7 @@ At first, please add following dependency and repository.
 
 ```groovy
 dependencies {
-  testCompile "io.disc99:hogan:0.9.1"
+  testCompile "io.disc99:hogan:0.9.2"
 }
 repositories {
   jcenter()
@@ -85,7 +85,7 @@ INSERT INTO SALES (ID, DAY, ITEM_ID, NUM) VALUES (2, '2015-04-02', 2, 1)
 INSERT INTO SALES (ID, DAY, ITEM_ID, NUM) VALUES (3, '2015-04-02', 1, 2)
 ```
 
-### Feature: expect (@Beta)
+### Feature: assert (@Beta)
 Assert to the table according to the definition.<br>
 And undefined columns will be ignored.
 
@@ -96,7 +96,7 @@ class HoganSpec extends Specification {
     // ...
 
     then:
-    db.expect {
+    db.assert {
       item_master:
       id  | name
       100 | 'Banana'

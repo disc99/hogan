@@ -6,6 +6,7 @@ import org.codehaus.groovy.ast.ClassHelper
 import org.codehaus.groovy.ast.ClassNode
 import org.codehaus.groovy.ast.Parameter
 import org.codehaus.groovy.ast.VariableScope
+import org.codehaus.groovy.ast.expr.ClassExpression
 import org.codehaus.groovy.ast.expr.ClosureExpression
 import org.codehaus.groovy.ast.expr.ConstantExpression
 import org.codehaus.groovy.ast.expr.MapEntryExpression
@@ -63,7 +64,7 @@ class TransformClassNode {
     }
 
     private boolean isTargetMethod(value) {
-        value == "insert" || value == "expect"
+        value == "insert" || value == "assert"
     }
 
     private void rewrite(MethodCallExpression method) {
@@ -86,7 +87,11 @@ class TransformClassNode {
         dslCode.statements.each {
             ExpressionStatement statement = (ExpressionStatement) it
             if (statement.statementLabels != null) {
-                label = statement.statementLabels[0]
+                String comment = ""
+                if (statement.expression instanceof ConstantExpression) {
+                    comment = ((ConstantExpression)statement.expression).value
+                }
+                label = statement.statementLabels[0] + ":" + comment
                 map.put(label, new BlockStatement())
             }
             BlockStatement bs = map.get(label)
