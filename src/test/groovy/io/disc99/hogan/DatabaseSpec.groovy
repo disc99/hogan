@@ -61,7 +61,7 @@ class DatabaseSpec extends Specification {
                 '[ID:2, NAME:Orange, PRICE:250]]'
     }
 
-    def "expect table"() {
+    def "assert table"() {
         setup:
         sql.dataSet("item_master").add(id: 100, name: 'Banana')
         sql.dataSet("item_master").add(id: 101, name: 'Pineapple')
@@ -70,7 +70,7 @@ class DatabaseSpec extends Specification {
         sql.dataSet("sales").add(id: 3, count: 50, create_at: new Date(Long.MAX_VALUE))
 
         expect:
-        db.expect {
+        db.assert {
             item_master:
             id  | name
             100 | 'Banana'

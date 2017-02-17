@@ -119,9 +119,11 @@ class Database {
      * @param tables
      */
     void insert(tables) {
-        tables.each { name, table ->
+        Map<String, Closure> tableMap = (Map<String, Closure>)tables
+        tableMap.each { name, table ->
             TableParser.asTable(table).toMapList().each {
-                sql.dataSet(name).add(it)
+                String[] names = name.split(":")
+                sql.dataSet(names[0]).add(it)
             }
         }
     }
@@ -132,15 +134,21 @@ class Database {
      * @param tables
      */
     @Beta
-    void expect(tableDefs) {
-        tableDefs.each { name, tableDef ->
+    void 'assert'(tableDefs) {
+        Map<String, Closure> tableMap = (Map<String, Closure>)tableDefs
 
+        tableMap.each { name, tableDef ->
+            String[] names = name.split(":")
             Table table = TableParser.asTable(tableDef)
-            List<Map<String, Object>> tableMap = table.toMapList()
-            String expected = tableMap.toString()
+            List<Map<String, Object>> tables = table.toMapList()
+            String expected = tables.toString()
 
             List<String> upperCols = table.columns.collect { it.name.toUpperCase() }
-            List<Map<String, Object>> rows = sql.dataSet(name).rows().collect {
+            String query =  sql.dataSet(names[0]).getSql()
+            if (names.length == 2) {
+                query += " where " + names[1]
+            }
+            List<Map<String, Object>> rows = sql.rows(query).collect {
                 it.subMap(upperCols).collectEntries({k, v -> [findByUpperCol(table, k), v]})
             }
             String actual = rows.toString()
