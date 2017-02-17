@@ -107,6 +107,11 @@ class DatabaseSpec extends Specification {
         logic << [
                 { new Database(sql()) },
                 { new Database(sql().getConnection()) },
+                { new Database("jdbc:h2:mem:") },
+                { new Database("jdbc:h2:mem:", "org.h2.Driver") },
+                { new Database("jdbc:h2:mem:", "sa", "") },
+                { new Database("jdbc:h2:mem:", "sa", "", "org.h2.Driver") },
+                { new Database([url:"jdbc:h2:mem:", user:"sa", password:"", driverClassName:"org.h2.Driver"]) },
                 { new Database(sql()).getSql() },
                 { new Database(sql()).commit() },
                 { new Database(sql()).rollback() },
